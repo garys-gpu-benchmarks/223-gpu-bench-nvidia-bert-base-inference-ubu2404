@@ -107,12 +107,12 @@
   {
     "field_name": "run_benchmark Command Plus Options for Baseline Run",
     "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
-    "value": "bash run_benchmark.sh --baseline --validate --model-name bert-base-uncased --dtype f16_r --precision mixed_float16 --num-gpus 1 --prompt-source synthetic --sequence-len 128 --batch-size 4 --warmup-iters 2 --num-iterations 27400"
+    "value": "bash run_benchmark.sh --baseline --validate --model-name bert-base-uncased --dtype f16_r --precision mixed_float16 --num-gpus 1 --prompt-source synthetic --sequence-len 128 --batch-size 4 --warmup-iters 2 --num-iterations 15000"
   },
   {
     "field_name": "run_benchmark Command Plus Options for Extended Run",
     "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
-    "value": "bash run_benchmark.sh --extended --validate --model-name bert-base-uncased --dtype f16_r --precision mixed_float16 --num-gpus 1 --prompt-source synthetic --sequence-len 256 --batch-size 8 --warmup-iters 5 --num-iterations 102000"
+    "value": "bash run_benchmark.sh --extended --validate --model-name bert-base-uncased --dtype f16_r --precision mixed_float16 --num-gpus 1 --prompt-source synthetic --sequence-len 256 --batch-size 8 --warmup-iters 5 --num-iterations 52000"
   },
   {
     "field_name": "Output Fields / Metrics to Parse",
@@ -182,7 +182,7 @@
   {
     "field_name": "PyTorch Version",
     "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
-    "value": "PyTorch 2.7.1+cu128"
+    "value": "PyTorch 2.13.0+cu130"
   },
   {
     "field_name": "torchvision Version",
@@ -407,7 +407,7 @@
   {
     "field_name": "Profile Parameter Values",
     "source_file": "BenchmarkSpecDefinitions.xlsx::Parameters_SmokeBaselineExtend",
-    "value": "{\"model_name\": {\"smoke\": \"bert-base-uncased\", \"baseline\": \"bert-base-uncased\", \"extended\": \"bert-base-uncased\", \"notes\": \"\"}, \"dtype\": {\"smoke\": \"f16_r\", \"baseline\": \"f16_r\", \"extended\": \"f16_r\", \"notes\": \"\"}, \"precision\": {\"smoke\": \"mixed_float16\", \"baseline\": \"mixed_float16\", \"extended\": \"mixed_float16\", \"notes\": \"\"}, \"num_gpus\": {\"smoke\": \"1\", \"baseline\": \"1\", \"extended\": \"1\", \"notes\": \"\"}, \"prompt_source\": {\"smoke\": \"synthetic\", \"baseline\": \"synthetic\", \"extended\": \"synthetic\", \"notes\": \"\"}, \"sequence_len\": {\"smoke\": \"32\", \"baseline\": \"128\", \"extended\": \"256\", \"notes\": \"\"}, \"batch_size\": {\"smoke\": \"1\", \"baseline\": \"4\", \"extended\": \"8\", \"notes\": \"\"}, \"warmup_iters\": {\"smoke\": \"2\", \"baseline\": \"2\", \"extended\": \"5\", \"notes\": \"\"}, \"num_iterations\": {\"smoke\": \"5\", \"baseline\": \"27400\", \"extended\": \"102000\", \"notes\": \"H100 2026-08-16 probe 100 -> 9s (2 model loads ~7.4s + 8ms/step). Predict 12500 -> ~208s. Do not copy AMD 18000. Extended 36000 extrapolated ~10:00, not tested. Retimed 2026-08-17 toward 3-4 min baseline; extended scaled by the same factor. 2026-09-08: extended 51200 timed BERT forwards (sequence_len=256, batch_size=8, 5-iter warmup) measured 6:02 on remote VM; extended raised to 102000 to retarget ~12 min. Baseline (18000) not retuned -- not investigated. | 2026-09-11 GARY_LEDGER (runtime_ledger_201_232): baseline (18000 iters, unretuned since 2026-08-17) measured 2:15/2:21/2:23 (avg 2:20) across 3 live loop runs against a 'make at least 3 min' target -- still under the floor. Rate ~128.9 iters/s. Naive scale to 240s gives ~30930; padded to 37100 (~4:48 predicted) for the same load/warmup-overhead margin applied to 222. Extended (102000, ~12 min) not flagged -- left unchanged. | 2026-10-19 GARY_LEDGER (runtime_ledger_Aggregate_375_376_377_378_20261019a_845am; targets baseline under 5 min, extended under 15 min): baseline 37100 measured 5:20/4:57 (slower run); fixed start ~15s from smoke; 37100 -> 27400, predicted ~4:00. Unconfirmed by a fresh run.\"}}"
+    "value": "{\"model_name\": {\"smoke\": \"bert-base-uncased\", \"baseline\": \"bert-base-uncased\", \"extended\": \"bert-base-uncased\", \"notes\": \"\"}, \"dtype\": {\"smoke\": \"f16_r\", \"baseline\": \"f16_r\", \"extended\": \"f16_r\", \"notes\": \"\"}, \"precision\": {\"smoke\": \"mixed_float16\", \"baseline\": \"mixed_float16\", \"extended\": \"mixed_float16\", \"notes\": \"\"}, \"num_gpus\": {\"smoke\": \"1\", \"baseline\": \"1\", \"extended\": \"1\", \"notes\": \"\"}, \"prompt_source\": {\"smoke\": \"synthetic\", \"baseline\": \"synthetic\", \"extended\": \"synthetic\", \"notes\": \"\"}, \"sequence_len\": {\"smoke\": \"32\", \"baseline\": \"128\", \"extended\": \"256\", \"notes\": \"\"}, \"batch_size\": {\"smoke\": \"1\", \"baseline\": \"4\", \"extended\": \"8\", \"notes\": \"\"}, \"warmup_iters\": {\"smoke\": \"2\", \"baseline\": \"2\", \"extended\": \"5\", \"notes\": \"\"}, \"num_iterations\": {\"smoke\": \"5\", \"baseline\": \"15000\", \"extended\": \"52000\", \"notes\": \"H100 2026-08-16 probe 100 -> 9s (2 model loads ~7.4s + 8ms/step). Predict 12500 -> ~208s. Do not copy AMD 18000. Extended 36000 extrapolated ~10:00, not tested. Retimed 2026-08-17 toward 3-4 min baseline; extended scaled by the same factor. 2026-09-08: extended 51200 timed BERT forwards (sequence_len=256, batch_size=8, 5-iter warmup) measured 6:02 on remote VM; extended raised to 102000 to retarget ~12 min. Baseline (18000) not retuned -- not investigated. | 2026-09-11 GARY_LEDGER (runtime_ledger_201_232): baseline (18000 iters, unretuned since 2026-08-17) measured 2:15/2:21/2:23 (avg 2:20) across 3 live loop runs against a 'make at least 3 min' target -- still under the floor. Rate ~128.9 iters/s. Naive scale to 240s gives ~30930; padded to 37100 (~4:48 predicted) for the same load/warmup-overhead margin applied to 222. Extended (102000, ~12 min) not flagged -- left unchanged. | 2026-10-19 GARY_LEDGER (runtime_ledger_Aggregate_375_376_377_378_20261019a_845am; targets baseline under 5 min, extended under 15 min): baseline 37100 measured 5:20/4:57 (slower run); fixed start ~15s from smoke; 37100 -> 27400, predicted ~4:00. Unconfirmed by a fresh run. | 2026-10-21 baseline 27400 -> 15000; 223 and 423 now share one value (as 1xx/3xx do). Ledger-predicted baseline runtime 24.04 ~3:17, 26.04 ~3:08 (limits: baseline 5:00, extended 15:00). | 2026-10-21 extended 102000 -> 52000; 223 and 423 now share one value (as 1xx/3xx do). Ledger-predicted extended runtime 24.04 ~7:05, 26.04 ~13:21 (limits: baseline 5:00, extended 15:00)\"}}"
   },
   {
     "field_name": "Profile Command Authorship",
